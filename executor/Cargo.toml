@@ -1,0 +1,37 @@
+[package]
+name = "executor"
+version = "0.1.0"
+edition = "2021"
+description = "Parental control service"
+readme = "README.md"
+authors = ["Rozen Software <rozsoft@wp.pl>"]
+keywords = ["windows"]
+categories = ["api-bindings", "os::windows-apis"]
+#repository = "https://github.com/mullvad/windows-service-rs"
+license = "MIT OR Apache-2.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+getopts = "0.2.21"
+winreg = "0.50"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1.0"
+chrono = "0.4"
+local-ip-address = "0.5.3"
+ctrlc = "3.4.0"
+widestring = "1"
+libc = "0.2"
+base64 = "0.21.2"
+
+[dependencies.windows-sys]
+version = "0.48"
+features = [
+    "Win32_Foundation",
+    "Win32_Security",
+    "Win32_UI_Input_KeyboardAndMouse",
+    "Win32_System_SystemServices",
+    "Win32_System_Performance",
+    "Win32_System_Threading",
+    "Win32_UI_WindowsAndMessaging",
+]

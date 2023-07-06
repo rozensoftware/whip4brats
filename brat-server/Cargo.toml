@@ -1,0 +1,49 @@
+[package]
+name = "brat-server"
+version = "0.1.0"
+edition = "2021"
+description = "Parental control service"
+readme = "README.md"
+authors = ["Rozen Software <rozsoft@wp.pl>"]
+keywords = ["windows", "service", "daemon"]
+categories = ["api-bindings", "os::windows-apis"]
+#repository = "https://github.com/mullvad/windows-service-rs"
+license = "MIT OR Apache-2.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+windows-service = "0.6.0"
+getopts = "0.2.21"
+log = "0.4.18"
+widestring = "1.0.2"
+winreg = "0.50"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1.0"
+chrono = "0.4"
+base64 = "0.21.2"
+libc = "0.2"
+sysinfo = "0.29.0"
+#bcrypt = "0.14"
+
+[dependencies.windows-sys]
+version = "0.48"
+features = [
+    "Win32_Foundation",
+    "Win32_System_Performance",
+    "Win32_Security",
+    "Win32_System_Registry",
+    "Win32_System_SystemServices",
+    "Win32_System_EventLog",
+    "Win32_System_Memory",
+    "Win32_System_Threading",
+]
+
+[build-dependencies]
+cc = "1.0"
+
+[profile.release]
+strip = true        #Strip symbols
+opt-level = 3       #Optimize for speed
+lto = true          #Enable link time optimization
+codegen-units = 1   #Max size reduction optimizations
