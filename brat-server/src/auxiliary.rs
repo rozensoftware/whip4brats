@@ -80,6 +80,26 @@ pub fn is_blocked_process_running() -> bool {
     false
 }
 
+// fn get_local_domain_name() -> Option<String> {
+//     let mut buf_len: u32 = 0;
+//     let mut buf: Vec<u16> = Vec::new();
+
+//     // First, try to get the DNS domain name
+//     if unsafe { GetComputerNameExW(ComputerNameDnsDomain, ptr::null_mut(), &mut buf_len) } == 0 {
+//         if unsafe { mem::transmute::<u32, winapi::shared::minwindef::DWORD>(GetLastError()) } != ERROR_SUCCESS {
+//             return None;
+//         }
+//     }
+
+//     buf.resize(buf_len as usize, 0);
+//     if unsafe { GetComputerNameExW(ComputerNameDnsDomain, buf.as_mut_ptr(), &mut buf_len) } == 0 {
+//         return None;
+//     }
+
+//     let domain_name = String::from_utf16_lossy(&buf[..buf.iter().position(|&c| c == 0).unwrap_or(buf.len())]);
+//     Some(domain_name)
+// }
+
 #[cfg(test)]
 mod tests {
     use super::*;

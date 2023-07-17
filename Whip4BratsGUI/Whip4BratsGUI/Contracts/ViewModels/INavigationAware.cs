@@ -1,0 +1,8 @@
+﻿namespace Whip4BratsGUI.Contracts.ViewModels;
+
+public interface INavigationAware
+{
+    void OnNavigatedTo(object parameter);
+
+    void OnNavigatedFrom();
+}

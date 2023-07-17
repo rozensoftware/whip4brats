@@ -100,13 +100,13 @@ impl Settings {
         self.read()?;
 
         if self.play_time.days.is_empty() {
-            self.play_time.add_day(1, 8, 23);
-            self.play_time.add_day(2, 8, 23);
-            self.play_time.add_day(3, 8, 23);
-            self.play_time.add_day(4, 8, 23);
-            self.play_time.add_day(5, 8, 23);
-            self.play_time.add_day(6, 8, 23);
-            self.play_time.add_day(7, 8, 23);
+            self.play_time.add_day(1, 8, 0, 23, 0);
+            self.play_time.add_day(2, 8, 0, 23, 0);
+            self.play_time.add_day(3, 8, 0, 23, 0);
+            self.play_time.add_day(4, 8, 0, 23, 0);
+            self.play_time.add_day(5, 8, 0, 23, 0);
+            self.play_time.add_day(6, 8, 0, 23, 0);
+            self.play_time.add_day(7, 8, 0, 23, 0);
 
             self.save()?;
         }
@@ -175,8 +175,8 @@ mod tests {
     #[test]
     fn test_add_two_days() {
         let mut settings = Settings::new();
-        settings.play_time.add_day(1, 8, 17);
-        settings.play_time.add_day(2, 8, 17);
+        settings.play_time.add_day(1, 8, 0, 17, 0);
+        settings.play_time.add_day(2, 8, 0, 17, 0);
         settings.save().unwrap();
         assert_eq!(settings.play_time.days.len(), 2);
 

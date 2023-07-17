@@ -1,0 +1,10 @@
+﻿{
+    "profiles": {
+      "Whip4BratsGUI (Unpackaged)": {
+        "commandName": "Project"
+      },
+      "Whip4BratsGUI (Package)": {
+        "commandName": "MsixPackage"
+      }
+    }
+}
