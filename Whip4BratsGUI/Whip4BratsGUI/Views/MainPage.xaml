@@ -7,6 +7,8 @@
     mc:Ignorable="d">
 
     <Grid x:Name="ContentArea">
-        
+        <StackPanel>
+            <TextBlock x:Uid="MainInfo" />
+        </StackPanel>
     </Grid>
 </Page>

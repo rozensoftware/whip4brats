@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml.Controls;
 using Whip4BratsGUI.Contracts.ViewModels;
 using Whip4BratsGUI.Core.Contracts.Services;
 using Whip4BratsGUI.Core.Models;
+using Whip4BratsGUI.Core.Services;
 using Whip4BratsGUI.Helpers;
 
 namespace Whip4BratsGUI.ViewModels;
@@ -26,8 +27,18 @@ public partial class ContentGridDetailViewModel : ObservableRecipient, INavigati
     [ObservableProperty]
     private string? endTime;
 
+    [ObservableProperty]
+    private string? parentPassword;
+
+    [ObservableProperty]
+    private string? childPassword;
+
+    [ObservableProperty]
+    private string? childUserName;
+
     private bool _internalTimeChange = false;
     private int _selectedDayIdx = 0;
+    private int _currentFeatureId = -1;
     private readonly List<string> _daysList;
 
     public ObservableCollection<string> Days { get; } = new ObservableCollection<string>();
@@ -143,6 +154,7 @@ public partial class ContentGridDetailViewModel : ObservableRecipient, INavigati
     {
         if (parameter is long featureID)
         {
+            _currentFeatureId = (int)featureID;
             var data = await _featureListService.GetContentGridAsync();
             Item = data.First(i => i.FeatureID == featureID);
 
@@ -154,10 +166,24 @@ public partial class ContentGridDetailViewModel : ObservableRecipient, INavigati
             {            
                 Days.Add(day);
             }
+
+            var pp = string.Empty;
+            var cp = string.Empty;
+            var cu = string.Empty;
+
+            _windowsRegistryService.ReadCredentials(out pp, out cu, out cp);
+
+            ParentPassword = pp;
+            ChildUserName = cu;
+            ChildPassword = cp;
         }
     }
 
     public void OnNavigatedFrom()
     {
+        if(_currentFeatureId == FeatureListService.FEATURE_PASSWORD_ID)
+        {
+            _windowsRegistryService.UpdateCredentials(ParentPassword, ChildUserName, ChildPassword);
+        }
     }
 }

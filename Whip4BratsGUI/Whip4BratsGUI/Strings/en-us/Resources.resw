@@ -186,4 +186,16 @@
   <data name="Wednesday.Text" xml:space="preserve">
     <value>Wednesday</value>
   </data>
+  <data name="MainInfo.Text" xml:space="preserve">
+    <value>Welcome! Your parental control application is ready to use.</value>
+  </data>
+  <data name="ChildPassword.PlaceholderText" xml:space="preserve">
+    <value>Enter Child Password</value>
+  </data>
+  <data name="ChildUserName.Text" xml:space="preserve">
+    <value>Child Account Name:</value>
+  </data>
+  <data name="ParentPassword.PlaceholderText" xml:space="preserve">
+    <value>Enter Parent Password</value>
+  </data>
 </root>

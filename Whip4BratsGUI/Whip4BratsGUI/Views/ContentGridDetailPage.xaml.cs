@@ -4,6 +4,7 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 
 using Whip4BratsGUI.Contracts.Services;
+using Whip4BratsGUI.Core.Services;
 using Whip4BratsGUI.Helpers;
 using Whip4BratsGUI.ViewModels;
 
@@ -26,6 +27,19 @@ public sealed partial class ContentGridDetailPage : Page
 
     private void ContentGridDetailPage_Loaded(object sender, RoutedEventArgs e)
     {       
+        if(ViewModel.Item != null)
+        {
+            if (ViewModel.Item.FeatureID == FeatureListService.FEATURE_PLAY_TIME_ID)
+            {
+                playTimes.Visibility = Visibility.Visible;
+                passwords.Visibility = Visibility.Collapsed;
+            }
+            else if (ViewModel.Item.FeatureID == FeatureListService.FEATURE_PASSWORD_ID)
+            {            
+                playTimes.Visibility = Visibility.Collapsed;
+                passwords.Visibility = Visibility.Visible;
+            }
+        }
     }
 
     protected override void OnNavigatedTo(NavigationEventArgs e)

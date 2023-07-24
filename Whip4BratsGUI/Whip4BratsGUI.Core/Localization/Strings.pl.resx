@@ -129,6 +129,15 @@
   <data name="Monday" xml:space="preserve">
     <value>Poniedziałek</value>
   </data>
+  <data name="password_description" xml:space="preserve">
+    <value>Wprowadza hasła rodzica i dziecka</value>
+  </data>
+  <data name="password_name" xml:space="preserve">
+    <value>Hasła</value>
+  </data>
+  <data name="registry_setting_failed" xml:space="preserve">
+    <value>Nie można uwtorzyć poprawnych zapisów w rejestrze systemowym!</value>
+  </data>
   <data name="Saturday" xml:space="preserve">
     <value>Sobota</value>
   </data>

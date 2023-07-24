@@ -97,6 +97,33 @@ namespace Whip4BratsGUI.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Set parental password and child password.
+        /// </summary>
+        internal static string password_description {
+            get {
+                return ResourceManager.GetString("password_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passwords.
+        /// </summary>
+        internal static string password_name {
+            get {
+                return ResourceManager.GetString("password_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Couldn&apos;t create proper system registry settings!.
+        /// </summary>
+        internal static string registry_setting_failed {
+            get {
+                return ResourceManager.GetString("registry_setting_failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Saturday.
         /// </summary>
         internal static string Saturday {

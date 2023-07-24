@@ -5,4 +5,8 @@ public interface IWindowsRegistryService
 {
     PlayCalendar ReadPlayTime();
     bool WritePlayTime(PlayCalendar playTimes);
+    bool CheckIfRegistryKeyExists();
+    void InitializeRegistrySettings();
+    void UpdateCredentials(string parentPassword, string childUserName, string childPassword);
+    void ReadCredentials(out string parentPassword, out string childUserName, out string childPassword);
 }

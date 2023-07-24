@@ -61,7 +61,7 @@
 
                 </RelativePanel>
 
-                <StackPanel HorizontalAlignment="Center">
+                <StackPanel HorizontalAlignment="Center" Name="playTimes" Visibility="Collapsed">
                     <ListView ItemsSource="{x:Bind ViewModel.Days, Mode=OneTime}" Height="60" ScrollViewer.HorizontalScrollMode="Enabled"
                               ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollMode="Disabled"
                               ScrollViewer.VerticalScrollBarVisibility="Hidden" SelectedIndex="0"
@@ -80,7 +80,21 @@
                     <TimePicker Name="clockEnd" ClockIdentifier="24HourClock" x:Uid="TimeEnd" 
                                 SelectedTime="{x:Bind ViewModel.EndTime, Mode=TwoWay}" TimeChanged="ClockEnd_TimeChanged"/>
                 </StackPanel>
-                
+
+                <StackPanel HorizontalAlignment="Center" Name="passwords" Visibility="Collapsed">
+                    <PasswordBox x:Uid="ParentPassword" Password="{x:Bind ViewModel.ParentPassword, Mode=TwoWay}" />
+
+                    <AppBarSeparator Width="80" Background="Transparent" />
+
+                    <TextBlock x:Uid="ChildUserName" />
+                    <TextBox Text="{x:Bind ViewModel.ChildUserName, Mode=TwoWay}" />
+
+                    <AppBarSeparator Width="40" Background="Transparent" />
+
+                    <PasswordBox x:Uid="ChildPassword" Password="{x:Bind ViewModel.ChildPassword, Mode=TwoWay}"/>
+
+                </StackPanel>
+
             </StackPanel>
         </ScrollViewer>
     </Grid>

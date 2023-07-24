@@ -129,6 +129,15 @@
   <data name="Monday" xml:space="preserve">
     <value>Monday</value>
   </data>
+  <data name="password_description" xml:space="preserve">
+    <value>Set parental password and child password</value>
+  </data>
+  <data name="password_name" xml:space="preserve">
+    <value>Passwords</value>
+  </data>
+  <data name="registry_setting_failed" xml:space="preserve">
+    <value>Couldn't create proper system registry settings!</value>
+  </data>
   <data name="Saturday" xml:space="preserve">
     <value>Saturday</value>
   </data>
