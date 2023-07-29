@@ -8,6 +8,7 @@ public class FeatureListService : IFeatureListService
 {
     public static readonly int FEATURE_PLAY_TIME_ID = 1;
     public static readonly int FEATURE_PASSWORD_ID = 2;
+    public static readonly int FEATURE_ADVANCED_SETTINGS_ID = 3;
 
     private List<Feature> _allFeatures;
     private static readonly ResourceManager _resource = new("Whip4BratsGUI.Core.Localization.Strings", typeof(FeatureListService).Assembly);
@@ -30,6 +31,13 @@ public class FeatureListService : IFeatureListService
                 FeatureID = FEATURE_PASSWORD_ID,
                 FeatureName = _resource.GetString("password_name"),
                 SymbolCode = 0xE8BD
+            },
+            new Feature()
+            {
+                Description = _resource.GetString("advanced_settings_description"),
+                FeatureID = FEATURE_ADVANCED_SETTINGS_ID,
+                FeatureName = _resource.GetString("advanced_settings_name"),
+                SymbolCode = 0xE713
             },
         };
     }

@@ -80,6 +80,8 @@ public class WindowsRegistryService : IWindowsRegistryService
     /// <exception cref="Exception">When could not create or write to registry the exception will be thrown.</exception>
     public void InitializeRegistrySettings()
     {
+        var defaultPassword = "1234";
+
         #pragma warning disable CA1416 // Validate platform compatibility
         var keyUser = Registry.CurrentUser.OpenSubKey(PLAY_TIME_REG_KEY, true);
         if (keyUser is null)
@@ -111,10 +113,10 @@ public class WindowsRegistryService : IWindowsRegistryService
 
         key.SetValue(PLAY_TIME_REG_NAME, data, RegistryValueKind.String);
         key.SetValue(DOMAIN_NAME_REG_NAME, Environment.MachineName, RegistryValueKind.String);
-        key.SetValue(PARENTAL_PASSWORD_REG_NAME, string.Empty, RegistryValueKind.String);
+        key.SetValue(PARENTAL_PASSWORD_REG_NAME, AuxiliaryService.EncodeToBase64(defaultPassword), RegistryValueKind.String);
         key.SetValue(SERVER_ADDRESS_REG_NAME, LOCAL_IP_ADDRESS, RegistryValueKind.String);
         key.SetValue(USER_NAME_REG_NAME, string.Empty, RegistryValueKind.String);
-        key.SetValue(USER_PASSWORD_REG_NAME, string.Empty, RegistryValueKind.String);
+        key.SetValue(USER_PASSWORD_REG_NAME, AuxiliaryService.EncodeToBase64(defaultPassword), RegistryValueKind.String);
 
         key.Close();
         #pragma warning restore CA1416 // Validate platform compatibility

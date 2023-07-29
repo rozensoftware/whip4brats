@@ -117,11 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="advanced_settings_description" xml:space="preserve">
+    <value>Zmień ustawienia zaawansowane</value>
+  </data>
+  <data name="advanced_settings_name" xml:space="preserve">
+    <value>Ustawienia zaawansowane</value>
+  </data>
   <data name="clock_description" xml:space="preserve">
-    <value>Ustawia czas, w którym użytkownik może używać komputera</value>
+    <value>Ustaw czas, w którym użytkownik może używać komputera</value>
   </data>
   <data name="clock_name" xml:space="preserve">
     <value>Czas gry</value>
+  </data>
+  <data name="EnterPassword" xml:space="preserve">
+    <value>Wprowadź hasło rodzica (domniemane to 1234)</value>
   </data>
   <data name="Friday" xml:space="preserve">
     <value>Piątek</value>
@@ -130,7 +139,7 @@
     <value>Poniedziałek</value>
   </data>
   <data name="password_description" xml:space="preserve">
-    <value>Wprowadza hasła rodzica i dziecka</value>
+    <value>Wprowadź hasła rodzica i dziecka</value>
   </data>
   <data name="password_name" xml:space="preserve">
     <value>Hasła</value>

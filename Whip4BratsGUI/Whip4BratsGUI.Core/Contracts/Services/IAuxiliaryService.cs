@@ -5,4 +5,7 @@ public interface IAuxiliaryService
 {
     IList<string> GetWeekDays();
     void Initialize();
+    void SetParentLogged(bool isLogged);
+    string DecodeFromBase64(string encodedData);
+    bool IsParentLogged();
 }

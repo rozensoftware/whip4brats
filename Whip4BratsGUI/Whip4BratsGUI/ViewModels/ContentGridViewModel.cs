@@ -44,7 +44,14 @@ public partial class ContentGridViewModel : ObservableRecipient, INavigationAwar
         if (clickedItem != null)
         {
             _navigationService.SetListDataItemForNextConnectedAnimation(clickedItem);
-            _navigationService.NavigateTo(typeof(ContentGridDetailViewModel).FullName!, clickedItem.FeatureID);
+            if (clickedItem.FeatureID == Core.Services.FeatureListService.FEATURE_ADVANCED_SETTINGS_ID)
+            {
+                _navigationService.NavigateTo(typeof(AdvancedSettingsViewModel).FullName!, clickedItem.FeatureID);
+            }
+            else
+            {
+                _navigationService.NavigateTo(typeof(ContentGridDetailViewModel).FullName!, clickedItem.FeatureID);
+            }
         }
     }
 }

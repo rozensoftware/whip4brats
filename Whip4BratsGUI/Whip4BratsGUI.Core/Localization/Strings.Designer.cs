@@ -61,6 +61,24 @@ namespace Whip4BratsGUI.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Set Advanced Settings.
+        /// </summary>
+        internal static string advanced_settings_description {
+            get {
+                return ResourceManager.GetString("advanced_settings_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Advanced Settings.
+        /// </summary>
+        internal static string advanced_settings_name {
+            get {
+                return ResourceManager.GetString("advanced_settings_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Set hours when user can work on the computer.
         /// </summary>
         internal static string clock_description {
@@ -75,6 +93,15 @@ namespace Whip4BratsGUI.Core.Localization {
         internal static string clock_name {
             get {
                 return ResourceManager.GetString("clock_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter Parental Password (Default is 1234).
+        /// </summary>
+        internal static string EnterPassword {
+            get {
+                return ResourceManager.GetString("EnterPassword", resourceCulture);
             }
         }
         

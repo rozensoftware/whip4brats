@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.UI.Xaml.Controls;
 using Whip4BratsGUI.Contracts.ViewModels;
@@ -14,6 +13,7 @@ public partial class ContentGridDetailViewModel : ObservableRecipient, INavigati
 {
     private readonly IFeatureListService _featureListService;
     private readonly IWindowsRegistryService _windowsRegistryService;
+    private readonly IAuxiliaryService _auxiliaryService;
 
     [ObservableProperty]
     private Feature? item;
@@ -41,6 +41,10 @@ public partial class ContentGridDetailViewModel : ObservableRecipient, INavigati
     private int _currentFeatureId = -1;
     private readonly List<string> _daysList;
 
+    private string? prevParentPassword;
+    private string? prevChildPassword;
+    private string? prevChildUserName;
+
     public ObservableCollection<string> Days { get; } = new ObservableCollection<string>();
 
     public ContentGridDetailViewModel(IFeatureListService featureListService, 
@@ -48,6 +52,8 @@ public partial class ContentGridDetailViewModel : ObservableRecipient, INavigati
     {
         _featureListService = featureListService;
         _windowsRegistryService = windowsRegistryService;
+        _auxiliaryService = auxiliaryService;
+
         _daysList = auxiliaryService.GetWeekDays().ToList();
     }
 
@@ -94,10 +100,10 @@ public partial class ContentGridDetailViewModel : ObservableRecipient, INavigati
             save_time = true;
         }
 
-        val = int.Parse(time[3..4]);
+        val = int.Parse(time[3..5]);
         if (PlayTime.days[_selectedDayIdx].start_time_minutes != val)
         {
-            PlayTime.days[_selectedDayIdx].start_time_minutes = int.Parse(time[3..4]);
+            PlayTime.days[_selectedDayIdx].start_time_minutes = int.Parse(time[3..5]);
             save_time = true;
         }
 
@@ -130,10 +136,10 @@ public partial class ContentGridDetailViewModel : ObservableRecipient, INavigati
             save_time = true;
         }
         
-        val = int.Parse(time[3..4]);
+        val = int.Parse(time[3..5]);
         if (PlayTime.days[_selectedDayIdx].end_time_minutes != val)
         {
-            PlayTime.days[_selectedDayIdx].end_time_minutes = int.Parse(time[3..4]);
+            PlayTime.days[_selectedDayIdx].end_time_minutes = int.Parse(time[3..5]);
             save_time = true;
         }
 
@@ -167,15 +173,15 @@ public partial class ContentGridDetailViewModel : ObservableRecipient, INavigati
                 Days.Add(day);
             }
 
-            var pp = string.Empty;
-            var cp = string.Empty;
-            var cu = string.Empty;
+            _windowsRegistryService.ReadCredentials(out var pp, out var cu, out var cp);
 
-            _windowsRegistryService.ReadCredentials(out pp, out cu, out cp);
-
-            ParentPassword = pp;
+            ParentPassword = _auxiliaryService.DecodeFromBase64(pp);
             ChildUserName = cu;
-            ChildPassword = cp;
+            ChildPassword = _auxiliaryService.DecodeFromBase64(cp);
+
+            prevParentPassword = ParentPassword;
+            prevChildPassword = ChildPassword;
+            prevChildUserName = ChildUserName;
         }
     }
 
@@ -183,7 +189,12 @@ public partial class ContentGridDetailViewModel : ObservableRecipient, INavigati
     {
         if(_currentFeatureId == FeatureListService.FEATURE_PASSWORD_ID)
         {
-            _windowsRegistryService.UpdateCredentials(ParentPassword, ChildUserName, ChildPassword);
+            if (prevParentPassword != ParentPassword || prevChildPassword != ChildPassword || prevChildUserName != ChildUserName)
+            {
+                _windowsRegistryService.UpdateCredentials(AuxiliaryService.EncodeToBase64(ParentPassword), ChildUserName, 
+                    AuxiliaryService.EncodeToBase64(ChildPassword));
+                _auxiliaryService.SetParentLogged(false);
+            }
         }
     }
 }

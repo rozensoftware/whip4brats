@@ -71,6 +71,10 @@ public partial class App : Application
             services.AddTransient<ContentGridDetailViewModel>();
             services.AddTransient<ContentGridDetailPage>();
             services.AddTransient<ContentGridViewModel>();
+            services.AddTransient<PasswordDialogViewModel>();
+            services.AddTransient<PasswordPage>();
+            services.AddTransient<AdvancedSettingsViewModel>();
+            services.AddTransient<AdvancedSettingsPage>();
             services.AddTransient<ContentGridPage>();
             services.AddTransient<MainViewModel>();
             services.AddTransient<MainPage>();

@@ -1,4 +1,5 @@
 ﻿using System.Resources;
+using System.Text;
 using Whip4BratsGUI.Core.Contracts.Services;
 using Whip4BratsGUI.Core.Models;
 
@@ -9,9 +10,12 @@ public class AuxiliaryService : IAuxiliaryService
 
     private readonly IWindowsRegistryService _windowsRegistryService;
 
+    private bool _isParentLogged;
+
     public AuxiliaryService(IWindowsRegistryService windowsRegistryService)
     {    
         _windowsRegistryService = windowsRegistryService;
+        _isParentLogged = false;
     }
     
     public IList<string> GetWeekDays()
@@ -39,6 +43,20 @@ public class AuxiliaryService : IAuxiliaryService
             _windowsRegistryService.InitializeRegistrySettings();
         }
     }
+    
+    public static string EncodeToBase64(string toEncode)
+    {    
+        var toEncodeAsBytes = Encoding.ASCII.GetBytes(toEncode);
+        var returnValue = Convert.ToBase64String(toEncodeAsBytes);
+        return returnValue;
+    }
+
+    public string DecodeFromBase64(string encodedData)
+    {    
+        var encodedDataAsBytes = Convert.FromBase64String(encodedData);
+        var returnValue = Encoding.ASCII.GetString(encodedDataAsBytes);
+        return returnValue;
+    }
 
     public static PlayCalendar CreatePlayTimeCalendar()
     {
@@ -62,5 +80,15 @@ public class AuxiliaryService : IAuxiliaryService
         }
 
         return calendar;
+    }
+
+    public bool IsParentLogged()
+    {
+        return _isParentLogged;
+    }
+
+    public void SetParentLogged(bool isLogged)
+    {
+        _isParentLogged = isLogged; 
     }
 }

@@ -117,11 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="advanced_settings_description" xml:space="preserve">
+    <value>Set Advanced Settings</value>
+  </data>
+  <data name="advanced_settings_name" xml:space="preserve">
+    <value>Advanced Settings</value>
+  </data>
   <data name="clock_description" xml:space="preserve">
     <value>Set hours when user can work on the computer</value>
   </data>
   <data name="clock_name" xml:space="preserve">
     <value>Playing Time</value>
+  </data>
+  <data name="EnterPassword" xml:space="preserve">
+    <value>Enter Parental Password (Default is 1234)</value>
   </data>
   <data name="Friday" xml:space="preserve">
     <value>Friday</value>

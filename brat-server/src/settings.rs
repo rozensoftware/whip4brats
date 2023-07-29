@@ -15,24 +15,24 @@ use winreg::RegKey;
 //use bcrypt::{hash, verify, DEFAULT_COST};
 
 const PLAY_TIME_REG_KEY: &str = "SOFTWARE\\Rozen Software\\Whip4Brats";
-const SERVER_ADDRESS_REG_NAME: &str = "server_address";
 const LOCKING_INTERVAL_REG_NAME: &str = "locking_interval";
 const PLAY_TIME_REG_NAME: &str = "play_time";
 const USER_NAME_REG_NAME: &str = "user_name";
 const USER_PASSWORD_REG_NAME: &str = "user_password";
 const PARENTAL_CONTROL_PASSWORD_REG_NAME: &str = "parental_control_password";
 const DOMAIN_NAME_REG_NAME: &str = "domain_name";
+const SERVER_ADDRESS: &str = "127.0.0.1";
 
 #[derive(Serialize, Deserialize)]
 pub struct Settings {
     pub play_time: PlayTime,
-    pub server_address: String,
     pub current_directory: String,
     pub user_name: String,
     pub user_password: String,
     pub parental_control_password: String,
     pub domain_name: String,
     pub check_is_worstation_locked_interval: u64,
+    pub server_address: String,
 }
 
 pub fn notify_about_registry_change(callback: impl FnOnce() + Send + 'static) {
@@ -85,13 +85,13 @@ impl Settings {
     pub fn new() -> Self {
         Settings {
             play_time: PlayTime::new(),
-            server_address: String::new(),
             current_directory: String::new(),
             user_name: String::new(),
             user_password: String::new(),
             parental_control_password: String::new(),
             domain_name: ".".to_string(),
             check_is_worstation_locked_interval: 0,
+            server_address: SERVER_ADDRESS.to_string(),
         }
     }
 
@@ -119,7 +119,6 @@ impl Settings {
         let key = hklm.open_subkey(PLAY_TIME_REG_KEY)?;
         let data: String = key.get_value(PLAY_TIME_REG_NAME)?;
         self.play_time = serde_json::from_str(&data)?;
-        self.server_address = key.get_value(SERVER_ADDRESS_REG_NAME)?;
         self.check_is_worstation_locked_interval = key.get_value(LOCKING_INTERVAL_REG_NAME)?;
         self.user_name = key.get_value(USER_NAME_REG_NAME)?;
         self.user_password = key.get_value(USER_PASSWORD_REG_NAME)?;
@@ -137,7 +136,6 @@ impl Settings {
         let (key, _disp) = hklm.create_subkey(PLAY_TIME_REG_KEY)?;
         let serialized = serde_json::to_string(&self.play_time)?;
         key.set_value(PLAY_TIME_REG_NAME, &serialized)?;
-        key.set_value(SERVER_ADDRESS_REG_NAME, &self.server_address)?;
         key.set_value(
             LOCKING_INTERVAL_REG_NAME,
             &self.check_is_worstation_locked_interval,

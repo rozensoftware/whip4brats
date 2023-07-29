@@ -11,7 +11,6 @@ use std::sync::{
     Arc,
 };
 
-use local_ip_address::local_ip;
 use server::{BratServer, SimpleBratServer};
 
 mod actionprocessor;
@@ -22,6 +21,7 @@ mod sharedmemorymanager;
 mod wreg;
 
 const PORT_NUMBER: u16 = 1974;
+const DEFAULT_IP: &str = "127.0.0.1";
 
 #[cfg(not(target_os = "windows"))]
 fn main() {
@@ -29,7 +29,6 @@ fn main() {
 }
 
 fn main() -> Result<(), std::io::Error> {
-    let ip = local_ip().unwrap();
     let mut server: SimpleBratServer = BratServer::new();
     let running = Arc::new(AtomicBool::new(true));
     let r = running.clone();
@@ -39,7 +38,7 @@ fn main() -> Result<(), std::io::Error> {
     })
     .expect("Error setting Ctrl-C handler");
 
-    match server.start(&format!("{}:{}", ip, PORT_NUMBER), &running)
+    match server.start(&format!("{}:{}", DEFAULT_IP, PORT_NUMBER), &running)
     {
         Ok(_) => {}
         Err(e) => {
