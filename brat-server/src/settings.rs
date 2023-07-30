@@ -20,6 +20,7 @@ const PLAY_TIME_REG_NAME: &str = "play_time";
 const USER_NAME_REG_NAME: &str = "user_name";
 const USER_PASSWORD_REG_NAME: &str = "user_password";
 const PARENTAL_CONTROL_PASSWORD_REG_NAME: &str = "parental_control_password";
+const DISABLED_REG_NAME: &str = "disabled";
 const DOMAIN_NAME_REG_NAME: &str = "domain_name";
 const SERVER_ADDRESS: &str = "127.0.0.1";
 
@@ -33,6 +34,7 @@ pub struct Settings {
     pub domain_name: String,
     pub check_is_worstation_locked_interval: u64,
     pub server_address: String,
+    pub disabled: String,
 }
 
 pub fn notify_about_registry_change(callback: impl FnOnce() + Send + 'static) {
@@ -92,6 +94,7 @@ impl Settings {
             domain_name: ".".to_string(),
             check_is_worstation_locked_interval: 0,
             server_address: SERVER_ADDRESS.to_string(),
+            disabled: "0".to_string(),
         }
     }
 
@@ -128,6 +131,7 @@ impl Settings {
         let bytes = general_purpose::STANDARD.decode(&self.parental_control_password)?;
         self.parental_control_password = String::from_utf8(bytes)?;
         self.domain_name = key.get_value(DOMAIN_NAME_REG_NAME)?;
+        self.disabled = key.get_value(DISABLED_REG_NAME)?;
         Ok(())
     }
 
@@ -149,6 +153,7 @@ impl Settings {
         general_purpose::STANDARD
             .encode_string(self.parental_control_password.as_bytes(), &mut buff);
         key.set_value(PARENTAL_CONTROL_PASSWORD_REG_NAME, &buff)?;
+        key.set_value(DISABLED_REG_NAME, &self.disabled)?;
         Ok(())
     }
 

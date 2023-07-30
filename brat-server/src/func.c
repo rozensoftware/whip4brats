@@ -48,3 +48,28 @@ int runAsUser(const char *user_name, const char *password, const char *domain, c
 
     return 0;
 }
+
+char *GetCurrentUserName() 
+{
+	DWORD retSize = 0;
+	char *usrNameA;
+	NTSTATUS res = 0;
+
+    static char retUserName[256];
+
+    memset(retUserName, 0, sizeof(retUserName));
+
+	// Get the user of the "active" TS session
+	DWORD dwSessionId = WTSGetActiveConsoleSessionId();
+
+	if (0xFFFFFFFF != dwSessionId)
+    {
+        if(WTSQuerySessionInformation(WTS_CURRENT_SERVER_HANDLE, dwSessionId, WTSUserName, &usrNameA, &retSize)) 
+        {
+            strncpy(retUserName, usrNameA, sizeof(retUserName) - 1);
+            WTSFreeMemory(usrNameA);
+        }        
+    }	
+
+	return retUserName;
+}

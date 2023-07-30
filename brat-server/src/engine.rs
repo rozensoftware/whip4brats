@@ -254,11 +254,21 @@ impl Engine {
         false
     }
 
+    fn is_user_logged_in(&self) -> bool
+    {
+        let user_name = auxiliary::get_current_user_name();
+        self.settings.user_name == user_name
+    }
+
     pub fn run(&mut self) -> Result<(), String> {
         if self.critical_error {
             return Err("Quiting due to critical error".to_string());
         }
 
+        if !self.is_user_logged_in() {
+            return Ok(());
+        }
+        
         self.check_play_time();
 
         if self.reload_settings.load(Ordering::Relaxed) {
