@@ -1,5 +1,5 @@
 use libc::{c_char, c_int};
-use std::ffi::CString;
+use std::ffi::{CString, CStr};
 use std::mem::MaybeUninit;
 use std::thread;
 use windows_sys::Win32::System::Performance::{QueryPerformanceCounter, QueryPerformanceFrequency};
@@ -36,6 +36,20 @@ extern "C" {
         domain: *const c_char,
         program: *const c_char,
     ) -> c_int;
+
+    fn GetCurrentUserName() -> *const c_char;
+}
+
+pub fn get_current_user_name() -> String {
+    let user_name = unsafe { GetCurrentUserName() };
+
+    if user_name.is_null() {
+        return String::new();
+    }
+    
+    let user_name = unsafe { CStr::from_ptr(user_name as *mut c_char) };
+
+    user_name.to_str().unwrap().to_string()
 }
 
 pub fn run_as_user(user_name: &str, user_password: &str, domain_name: &str, exe_path: &str) {
@@ -114,5 +128,11 @@ mod tests {
     fn test_is_blocked_process_running() {
         let result = is_blocked_process_running();
         assert!(!result);
+    }
+
+    #[test]
+    fn test_get_current_user_name() {
+        let result = get_current_user_name();
+        assert!(!result.is_empty());
     }
 }
