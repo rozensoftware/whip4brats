@@ -265,7 +265,9 @@ impl Engine {
             return Err("Quiting due to critical error".to_string());
         }
 
-        if !self.is_user_logged_in() {
+        let disable = self.settings.disabled.parse::<u8>().unwrap_or(0);
+        
+        if disable == 1 || !self.is_user_logged_in() {
             return Ok(());
         }
         

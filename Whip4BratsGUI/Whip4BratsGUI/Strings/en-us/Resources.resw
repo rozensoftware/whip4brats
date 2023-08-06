@@ -198,4 +198,7 @@
   <data name="ParentPassword.PlaceholderText" xml:space="preserve">
     <value>Enter Parent Password</value>
   </data>
+  <data name="Disabled.Content" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
 </root>

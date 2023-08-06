@@ -7,15 +7,24 @@ namespace Whip4BratsGUI.ViewModels;
 public partial class AdvancedSettingsViewModel : ObservableRecipient, INavigationAware
 {
     private readonly IFeatureListService _featureListService;
+    private readonly IWindowsRegistryService _registryService;
 
     [ObservableProperty]
     private Feature? item;
 
-    public AdvancedSettingsViewModel(IFeatureListService featureListService)
+    [ObservableProperty]
+    private bool? disabled;
+
+    public AdvancedSettingsViewModel(IFeatureListService featureListService, IWindowsRegistryService registryService)
     {
         _featureListService = featureListService;
+        _registryService = registryService;
     }
 
+    public void SetDisabled(bool b)
+    {
+        _registryService.SetDisabled(b);
+    }
 
     public async void OnNavigatedTo(object parameter)
     {
@@ -23,6 +32,7 @@ public partial class AdvancedSettingsViewModel : ObservableRecipient, INavigatio
         {
             var data = await _featureListService.GetContentGridAsync();
             Item = data.First(i => i.FeatureID == featureID);
+            Disabled = _registryService.IsDisabled();
         }
     }
 

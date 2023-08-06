@@ -37,4 +37,14 @@ public sealed partial class AdvancedSettingsPage : Page
             }
         }
     }
+
+    private void CheckBox_Checked(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        ViewModel.SetDisabled(true);
+    }
+
+    private void CheckBox_Unchecked(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        ViewModel.SetDisabled(false);
+    }
 }

@@ -15,12 +15,13 @@ public class WindowsRegistryService : IWindowsRegistryService
     private static readonly string SERVER_ADDRESS_REG_NAME = "server_address";
     private static readonly string USER_NAME_REG_NAME = "user_name";
     private static readonly string USER_PASSWORD_REG_NAME = "user_password";
+    private static readonly string DISABLED_REG_NAME = "disabled";
     private static readonly string LOCAL_IP_ADDRESS = "127.0.0.1";
 
     public PlayCalendar ReadPlayTime()
     {
         // Open the registry key where the object is stored
-#pragma warning disable CA1416 // Validate platform compatibility
+        #pragma warning disable CA1416 // Validate platform compatibility
         var key = Registry.LocalMachine.OpenSubKey(PLAY_TIME_REG_KEY, false);
 
         // Read the serialized data
@@ -32,7 +33,7 @@ public class WindowsRegistryService : IWindowsRegistryService
 
         var data = key.GetValue(PLAY_TIME_REG_NAME).ToString();
         key.Close();
-#pragma warning restore CA1416 // Validate platform compatibility
+        #pragma warning restore CA1416 // Validate platform compatibility
 
         var playTimes = JsonSerializer.Deserialize<PlayCalendar>(data);
         return playTimes;
@@ -44,7 +45,7 @@ public class WindowsRegistryService : IWindowsRegistryService
         var data = JsonSerializer.Serialize(playTimes);
 
         // Open the registry key where the object will be stored
-#pragma warning disable CA1416 // Validate platform compatibility
+        #pragma warning disable CA1416 // Validate platform compatibility
         var key = Registry.LocalMachine.OpenSubKey(PLAY_TIME_REG_KEY, true);
 
         if (key is null)
@@ -60,7 +61,7 @@ public class WindowsRegistryService : IWindowsRegistryService
         key.SetValue(PLAY_TIME_REG_NAME, data, RegistryValueKind.String);
 
         key.Close();
-#pragma warning restore CA1416 // Validate platform compatibility
+        #pragma warning restore CA1416 // Validate platform compatibility
 
         return true;
     }
@@ -117,6 +118,7 @@ public class WindowsRegistryService : IWindowsRegistryService
         key.SetValue(SERVER_ADDRESS_REG_NAME, LOCAL_IP_ADDRESS, RegistryValueKind.String);
         key.SetValue(USER_NAME_REG_NAME, string.Empty, RegistryValueKind.String);
         key.SetValue(USER_PASSWORD_REG_NAME, AuxiliaryService.EncodeToBase64(defaultPassword), RegistryValueKind.String);
+        key.SetValue(DISABLED_REG_NAME, "0", RegistryValueKind.String);
 
         key.Close();
         #pragma warning restore CA1416 // Validate platform compatibility
@@ -155,7 +157,7 @@ public class WindowsRegistryService : IWindowsRegistryService
 
         key.SetValue(PARENTAL_PASSWORD_REG_NAME, parentPassword, RegistryValueKind.String);
         key.Close();
-#pragma warning restore CA1416 // Validate platform compatibility
+        #pragma warning restore CA1416 // Validate platform compatibility
     }
 
     public void ReadCredentials(out string parentPassword, out string childUserName, out string childPassword)
@@ -177,6 +179,45 @@ public class WindowsRegistryService : IWindowsRegistryService
         childPassword = key.GetValue(USER_PASSWORD_REG_NAME).ToString();
 
         key.Close();
-#pragma warning restore CA1416 // Validate platform compatibility
+        #pragma warning restore CA1416 // Validate platform compatibility
+    }
+
+    public bool IsDisabled()
+    {
+        #pragma warning disable CA1416 // Validate platform compatibility
+        var key = Registry.LocalMachine.OpenSubKey(PLAY_TIME_REG_KEY, false);
+
+        if (key is null)
+        {        
+            return false;
+        }
+
+        var disabled = key.GetValue(DISABLED_REG_NAME).ToString();
+
+        key.Close();
+        
+        #pragma warning restore CA1416 // Validate platform compatibility
+        return disabled == "1";
+    }
+
+    public void SetDisabled(bool disabled)
+    {
+        #pragma warning disable CA1416 // Validate platform compatibility
+        var key = Registry.LocalMachine.OpenSubKey(PLAY_TIME_REG_KEY, true);
+
+        if (key is null)
+        {
+               
+            key = Registry.LocalMachine.CreateSubKey(PLAY_TIME_REG_KEY);
+            if (key is null)
+            {                       
+                throw new Exception(_resource.GetString("registry_setting_failed"));
+            }
+        }
+
+        key.SetValue(DISABLED_REG_NAME, disabled ? "1" : "0", RegistryValueKind.String);
+
+        key.Close();
+        #pragma warning restore CA1416 // Validate platform compatibility
     }
 }
