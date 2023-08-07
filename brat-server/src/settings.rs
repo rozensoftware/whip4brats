@@ -22,7 +22,7 @@ const USER_PASSWORD_REG_NAME: &str = "user_password";
 const PARENTAL_CONTROL_PASSWORD_REG_NAME: &str = "parental_control_password";
 const DISABLED_REG_NAME: &str = "disabled";
 const DOMAIN_NAME_REG_NAME: &str = "domain_name";
-const SERVER_ADDRESS: &str = "127.0.0.1";
+const SERVER_ADDRESS: &str = "127.0.0.1:1974";
 
 #[derive(Serialize, Deserialize)]
 pub struct Settings {
@@ -32,7 +32,7 @@ pub struct Settings {
     pub user_password: String,
     pub parental_control_password: String,
     pub domain_name: String,
-    pub check_is_worstation_locked_interval: u64,
+    pub check_is_worstation_locked_interval: u32,
     pub server_address: String,
     pub disabled: String,
 }

@@ -79,6 +79,15 @@ namespace Whip4BratsGUI.Core.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All fields must be filled.
+        /// </summary>
+        internal static string AllFieldsWarning {
+            get {
+                return ResourceManager.GetString("AllFieldsWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Set hours when user can work on the computer.
         /// </summary>
         internal static string clock_description {

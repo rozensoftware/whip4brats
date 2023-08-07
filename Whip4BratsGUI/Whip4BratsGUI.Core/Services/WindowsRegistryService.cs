@@ -16,6 +16,7 @@ public class WindowsRegistryService : IWindowsRegistryService
     private static readonly string USER_NAME_REG_NAME = "user_name";
     private static readonly string USER_PASSWORD_REG_NAME = "user_password";
     private static readonly string DISABLED_REG_NAME = "disabled";
+    private static readonly string LOCKING_INTERVAL_REG_NAME = "locking_interval";
     private static readonly string LOCAL_IP_ADDRESS = "127.0.0.1";
 
     public PlayCalendar ReadPlayTime()
@@ -82,6 +83,7 @@ public class WindowsRegistryService : IWindowsRegistryService
     public void InitializeRegistrySettings()
     {
         var defaultPassword = "1234";
+        var lockingInterval = 1000;
 
         #pragma warning disable CA1416 // Validate platform compatibility
         var keyUser = Registry.CurrentUser.OpenSubKey(PLAY_TIME_REG_KEY, true);
@@ -119,6 +121,7 @@ public class WindowsRegistryService : IWindowsRegistryService
         key.SetValue(USER_NAME_REG_NAME, string.Empty, RegistryValueKind.String);
         key.SetValue(USER_PASSWORD_REG_NAME, AuxiliaryService.EncodeToBase64(defaultPassword), RegistryValueKind.String);
         key.SetValue(DISABLED_REG_NAME, "0", RegistryValueKind.String);
+        key.SetValue(LOCKING_INTERVAL_REG_NAME, lockingInterval, RegistryValueKind.DWord);
 
         key.Close();
         #pragma warning restore CA1416 // Validate platform compatibility

@@ -82,6 +82,7 @@
                 </StackPanel>
 
                 <StackPanel HorizontalAlignment="Center" Name="passwords" Visibility="Collapsed">
+                    <TextBlock x:Uid="ParentPasswordTxt"/>
                     <PasswordBox x:Uid="ParentPassword" Password="{x:Bind ViewModel.ParentPassword, Mode=TwoWay}" />
 
                     <AppBarSeparator Width="80" Background="Transparent" />
@@ -91,7 +92,10 @@
 
                     <AppBarSeparator Width="40" Background="Transparent" />
 
+                    <TextBlock x:Uid="ChildPasswordTxt"/>
                     <PasswordBox x:Uid="ChildPassword" Password="{x:Bind ViewModel.ChildPassword, Mode=TwoWay}"/>
+
+                    <TextBlock x:Uid="NoEmptyFields"/>
 
                 </StackPanel>
 

@@ -123,6 +123,9 @@
   <data name="advanced_settings_name" xml:space="preserve">
     <value>Advanced Settings</value>
   </data>
+  <data name="AllFieldsWarning" xml:space="preserve">
+    <value>All fields must be filled</value>
+  </data>
   <data name="clock_description" xml:space="preserve">
     <value>Set hours when user can work on the computer</value>
   </data>

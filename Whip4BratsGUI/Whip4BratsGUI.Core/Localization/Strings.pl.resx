@@ -123,6 +123,9 @@
   <data name="advanced_settings_name" xml:space="preserve">
     <value>Ustawienia zaawansowane</value>
   </data>
+  <data name="AllFieldsWarning" xml:space="preserve">
+    <value>Wszystkie pola muszą być wypełnione!</value>
+  </data>
   <data name="clock_description" xml:space="preserve">
     <value>Ustaw czas, w którym użytkownik może używać komputera</value>
   </data>

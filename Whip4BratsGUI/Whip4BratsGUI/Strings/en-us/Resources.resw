@@ -201,4 +201,13 @@
   <data name="Disabled.Content" xml:space="preserve">
     <value>Disabled</value>
   </data>
+  <data name="ChildPasswordTxt.Text" xml:space="preserve">
+    <value>Child Password:</value>
+  </data>
+  <data name="NoEmptyFields.Text" xml:space="preserve">
+    <value>All fields mist be filled</value>
+  </data>
+  <data name="ParentPasswordTxt.Text" xml:space="preserve">
+    <value>Parent Password:</value>
+  </data>
 </root>

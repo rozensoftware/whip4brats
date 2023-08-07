@@ -189,6 +189,14 @@ public partial class ContentGridDetailViewModel : ObservableRecipient, INavigati
     {
         if(_currentFeatureId == FeatureListService.FEATURE_PASSWORD_ID)
         {
+            if (string.IsNullOrEmpty(ParentPassword) || string.IsNullOrEmpty(ChildPassword) || string.IsNullOrEmpty(ChildUserName))
+            {
+                var resource = new System.Resources.ResourceManager("Whip4BratsGUI.Core.Localization.Strings", typeof(FeatureListService).Assembly);
+
+                _ = MessageBoxHelper.ShowErrorAsync(resource.GetString("AllFieldsWarning")!, App.MainWindow.Content.XamlRoot);
+                return;
+            }
+
             if (prevParentPassword != ParentPassword || prevChildPassword != ChildPassword || prevChildUserName != ChildUserName)
             {
                 _windowsRegistryService.UpdateCredentials(AuxiliaryService.EncodeToBase64(ParentPassword), ChildUserName, 
