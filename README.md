@@ -18,6 +18,24 @@ After a certain amount of time, there is a screen lock, which prevents further p
 
 ## Installation
 
+To install service run the command like below as you with elevated privileges:
+
+```powershell
+./brat-server --register
+```
+
+Unregister:
+
+```powershell
+./brat-server --unregister
+```
+
+For help type:
+
+```powershell
+./brat-server --help
+```
+
 Once the software is installed, a temporary password of '1234' will be created, which will be replaced with the password of the parent account after it is configured on the Password Setup Screen.
 
 Run the Whip4BratsGUI module and configure the parental settings, i.e.: enter the parent account password, child account name and password.
