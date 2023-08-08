@@ -185,6 +185,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     }
     break;
 
+    //Add on close handler to decide whether to close the window or not
+    case WM_CLOSE:
+		if (timeDialog.getHwnd() == nullptr)
+		{
+			DestroyWindow(hWnd);
+		}
+		break;
+
     case WM_DESTROY:
         timeDialog.close();
         ReleaseMutex(hMutexOneInstance);
