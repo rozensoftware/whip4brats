@@ -1,4 +1,6 @@
-﻿using System.Resources;
+﻿using System.Diagnostics;
+using System.Resources;
+using System.ServiceProcess;
 using System.Text;
 using Whip4BratsGUI.Core.Contracts.Services;
 using Whip4BratsGUI.Core.Models;
@@ -90,5 +92,47 @@ public class AuxiliaryService : IAuxiliaryService
     public void SetParentLogged(bool isLogged)
     {
         _isParentLogged = isLogged; 
+    }
+
+    //Get path where this program is running in
+    public string GetProgramPath()
+    {       
+        var path = System.Reflection.Assembly.GetExecutingAssembly().Location;
+        var directory = System.IO.Path.GetDirectoryName(path);
+        return directory;
+    }
+
+    public void RunExternalProgram(string programPath)
+    {    
+        var process = new Process();
+        process.StartInfo.FileName = programPath;
+        process.StartInfo.UseShellExecute = false;
+        process.StartInfo.Arguments = "--register";
+        process.Start();
+    }
+
+    public bool IsServiceRunning(string serviceName)
+    {
+        #pragma warning disable CA1416 // Validate platform compatibility
+        
+        var services = ServiceController.GetServices();
+        var service = services.FirstOrDefault(s => s.ServiceName == serviceName);
+        return service != null && service.Status == ServiceControllerStatus.Running;
+        
+        #pragma warning restore CA1416 // Validate platform compatibility
+    }
+
+    public void StartService(string serviceName)
+    {    
+        #pragma warning disable CA1416 // Validate platform compatibility
+           
+        var services = ServiceController.GetServices();
+        var service = services.FirstOrDefault(s => s.ServiceName == serviceName);
+        if (service != null && service.Status != ServiceControllerStatus.Running)
+        {        
+            service.Start();
+        }
+        
+        #pragma warning restore CA1416 // Validate platform compatibility
     }
 }

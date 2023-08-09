@@ -14,11 +14,12 @@ After a certain amount of time, there is a screen lock, which prevents further p
 - A weekly calendar indicating the range of available time: from an hour with minutes, to an hour with minutes
 - Disabling/Enabling surveillance
 - Three-level system with supervisor service, command execution application and GUI app for setting time and other parameters
-- Temporary removal of the lock from 5 to 30 minutes
+- Temporary removal of the lock from 5 minutes to 1 hour
+- Multilingual (currently English and Polish - mostly translated)
 
 ## Installation
 
-To install service run the command like below as you with elevated privileges:
+To install service run the command like below with elevated privileges:
 
 ```powershell
 ./brat-server --register
@@ -61,15 +62,22 @@ The system consists of several components:
 Visual Studio 2022 and VS Code have been used to write this software. Probably VS Code could be used alone but I haven't had a chance to check it.
 There is no publish script to make an installer so far. All exe files must be in one folder to work correctly.
 
-Bart-server log most of actions and errors might be seen in Windows Event Viewer (Application node).
+Bart-server logs might be seen in Windows Event Viewer (Application node).
+
+## TODO
+
+These are some ideas to implement in future:
+
+- Write applications to remotely change the available time and monitor computer usage from the web browser.
+- Block the launch of selected applications.
+- Reporting of computer usage in given time intervals.
+- Installer for easy software setup.
 
 ## License
 
 This project is licensed under either of
 
-Apache License, Version 2.0, (LICENSE-APACHE or <http://www.apache.org/licenses/LICENSE-2.0>)
-MIT license (LICENSE-MIT or <http://opensource.org/licenses/MIT>)
-at your option.
+Apache License, Version 2.0, (LICENSE-APACHE or <http://www.apache.org/licenses/LICENSE-2.0>) MIT license (LICENSE-MIT or <http://opensource.org/licenses/MIT>) at your option.
 
 ## Contributing / Feedback
 

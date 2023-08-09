@@ -10,7 +10,7 @@ use std::{
 
 use crate::{
     action::ActionType,
-    auxiliary::{self, is_blocked_process_running},
+    auxiliary::{self, is_process_running},
     client::{Client, ServiceClient},
     settings::Settings,
     sharedmemorymanager::SharedMemoryManager,
@@ -18,6 +18,7 @@ use crate::{
 
 const SLEEP_TIME: u64 = 1000;
 const SHARED_MEMORY_NAME: &str = "Global\\BratLockerSharedMemory";
+const EXECUTOR_PROCESS_NAME: &str = "executor.exe";
 const SHARED_MEMORY_SIZE: usize = 1024;
 
 pub struct Engine {
@@ -72,7 +73,8 @@ impl Engine {
             crit_err = !sm.create(SHARED_MEMORY_NAME, SHARED_MEMORY_SIZE);
 
             if !crit_err {
-                let executor_path = format!("{}\\executor.exe", sett.current_directory);
+                let executor_path =
+                    format!("{}\\{}", &sett.current_directory, EXECUTOR_PROCESS_NAME);
 
                 //Load executor as a user
                 auxiliary::run_as_user(
@@ -107,6 +109,21 @@ impl Engine {
         }
     }
 
+    fn load_executor(&self) {
+        let executor_path = format!(
+            "{}\\{}",
+            &self.settings.current_directory, EXECUTOR_PROCESS_NAME
+        );
+
+        //Load executor as a user
+        auxiliary::run_as_user(
+            &self.settings.user_name,
+            &self.settings.user_password,
+            &self.settings.domain_name,
+            &executor_path,
+        )
+    }
+
     fn check_play_time(&mut self) {
         if !self.settings.play_time.is_play_time() {
             self.sent_unblock_event = false;
@@ -136,14 +153,13 @@ impl Engine {
                 let mut i_requested_additional_playtime = self.requested_additional_playtime as i64;
 
                 i_requested_additional_playtime -= i_curr_time - self.last_time as i64;
-                
+
                 self.last_time = curr_time;
 
                 if i_requested_additional_playtime < 0 {
                     self.requested_additional_playtime = 0;
                     info!("Additional time expired");
-                }
-                else {
+                } else {
                     self.requested_additional_playtime = i_requested_additional_playtime as u64;
                 }
 
@@ -170,14 +186,22 @@ impl Engine {
 
             self.last_lock_workstation_event_sent_time = curr_time;
 
-            if is_blocked_process_running() {
+            const BLOCKED_PROCESS_NAME: &str = "bratlocker.exe";
+
+            if is_process_running(BLOCKED_PROCESS_NAME) {
                 return;
+            }
+
+            if !is_process_running(EXECUTOR_PROCESS_NAME) {
+                //Executor process could be killed when loging out
+                //Bring it back
+                self.load_executor();
             }
 
             let action_type = ActionType::LockWorkstation;
 
             info!("Sending lock workstation event");
-            
+
             match self
                 .client
                 .send_action(&self.settings.server_address, action_type)
@@ -236,7 +260,7 @@ impl Engine {
         if len == 0 {
             return false;
         }
-        
+
         let slice = &slice[..len];
         let str_buff = String::from_utf16_lossy(slice);
 
@@ -254,8 +278,7 @@ impl Engine {
         false
     }
 
-    fn is_user_logged_in(&self) -> bool
-    {
+    fn is_user_logged_in(&self) -> bool {
         let user_name = auxiliary::get_current_user_name();
         self.settings.user_name == user_name
     }
@@ -270,12 +293,12 @@ impl Engine {
         }
 
         let disable = self.settings.disabled.parse::<u8>().unwrap_or(0);
-        
+
         if disable == 1 {
             self.send_unblock_event();
             return Ok(());
         }
-        
+
         self.check_play_time();
 
         if self.reload_settings.load(Ordering::Relaxed) {

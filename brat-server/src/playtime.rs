@@ -38,13 +38,20 @@ impl PlayTime {
     /// * `start_time_minute` - The start time in minutes (0-59)
     /// * `end_time_hour` - The end time in hours (0-23)
     /// * `end_time_minute` - The end time in minutes (0-59)
-    pub fn add_day(&mut self, day: u8, start_time_hour: u8, start_time_minutes: u8, end_time_hour: u8, end_time_minutes: u8) {
+    pub fn add_day(
+        &mut self,
+        day: u8,
+        start_time_hour: u8,
+        start_time_minutes: u8,
+        end_time_hour: u8,
+        end_time_minutes: u8,
+    ) {
         self.days.push(DayDefinition {
             day,
             start_time_hour,
             start_time_minutes,
             end_time_hour,
-            end_time_minutes
+            end_time_minutes,
         });
     }
 

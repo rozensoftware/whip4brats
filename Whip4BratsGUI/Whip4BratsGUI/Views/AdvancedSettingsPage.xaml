@@ -61,6 +61,7 @@
 
                 <StackPanel>
                     <CheckBox x:Uid="Disabled" IsChecked="{x:Bind ViewModel.Disabled, Mode=TwoWay}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+                    <Button x:Uid="StartService" IsEnabled="{x:Bind ViewModel.IsServiceRunning}" Click="Button_Click"/>
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>

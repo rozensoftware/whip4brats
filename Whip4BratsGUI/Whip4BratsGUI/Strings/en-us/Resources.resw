@@ -210,4 +210,7 @@
   <data name="ParentPasswordTxt.Text" xml:space="preserve">
     <value>Parent Password:</value>
   </data>
+  <data name="StartService.Content" xml:space="preserve">
+    <value>Start Service</value>
+  </data>
 </root>

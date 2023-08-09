@@ -1,5 +1,5 @@
 use libc::{c_char, c_int};
-use std::ffi::{CString, CStr};
+use std::ffi::{CStr, CString};
 use std::mem::MaybeUninit;
 use std::thread;
 use windows_sys::Win32::System::Performance::{QueryPerformanceCounter, QueryPerformanceFrequency};
@@ -46,7 +46,7 @@ pub fn get_current_user_name() -> String {
     if user_name.is_null() {
         return String::new();
     }
-    
+
     let user_name = unsafe { CStr::from_ptr(user_name as *mut c_char) };
 
     user_name.to_str().unwrap().to_string()
@@ -77,16 +77,14 @@ pub fn run_as_user(user_name: &str, user_password: &str, domain_name: &str, exe_
     });
 }
 
-pub fn is_blocked_process_running() -> bool {
-    use sysinfo::{System, SystemExt, ProcessExt};
-
-    const BLOCKED_PROCESS_NAME: &str =  "bratlocker.exe";
+pub fn is_process_running(process_name: &str) -> bool {
+    use sysinfo::{ProcessExt, System, SystemExt};
 
     let mut s = System::new_all();
     s.refresh_processes();
 
     for p in s.processes().values() {
-        if p.name().to_lowercase() == BLOCKED_PROCESS_NAME {
+        if p.name().to_lowercase() == process_name {
             return true;
         }
     }
@@ -126,7 +124,9 @@ mod tests {
 
     #[test]
     fn test_is_blocked_process_running() {
-        let result = is_blocked_process_running();
+        const BLOCKED_PROCESS_NAME: &str = "bratlocker.exe";
+
+        let result = is_process_running(BLOCKED_PROCESS_NAME);
         assert!(!result);
     }
 
