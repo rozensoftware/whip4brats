@@ -18,7 +18,7 @@ public partial class AdvancedSettingsViewModel : ObservableRecipient, INavigatio
     private Feature? item;
 
     [ObservableProperty]
-    private bool? disabled;
+    private bool? disabled; 
 
     [ObservableProperty]
     private bool isServiceRunning;

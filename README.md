@@ -42,8 +42,8 @@ Once the software is installed, a temporary password of '1234' will be created, 
 Run the Whip4BratsGUI module and configure the parental settings, i.e.: enter the parent account password, child account name and password.
 (The application password is the password of the parent's account in the system).
 
-Important! The child's account should not be in the Administrator group of the computer, or the supervision will be possible to remove by the child. On the other hand, the parent account must belong to the computer Administrators group.
-Next, define the time when the child can play with the computer. There is an option which can deactivate time limits.
+Important! The child's account should not be in the Administrator group of the computer, or the supervision will be possible to remove by the child. On the other hand, the parent account must belong to the computer Administrator group.
+Next, define the time when the child can play on the computer. There is an option which can deactivate time limits.
 
 Once you have made all the settings in the Whip4BratsGUI, you can start the service which can be done in Whip4BratsGUI app.
 
@@ -91,6 +91,6 @@ Several technologies were used to write it:
 - C# (WinUI)
 
 You are sure to find something in it for you.
-If you want to contribute, you are more than welcome to be a part of the project! Try to share you thoughts first! Feel free to open a new issue if you want to discuss new ideas.
+If you want to contribute, you are more than welcome to be a part of the project! Try to share your thoughts first! Feel free to open a new issue if you want to discuss new ideas.
 
 Any kind of feedback is welcome!
