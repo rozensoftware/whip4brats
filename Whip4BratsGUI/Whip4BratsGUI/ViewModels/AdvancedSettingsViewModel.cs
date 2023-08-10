@@ -53,6 +53,8 @@ public partial class AdvancedSettingsViewModel : ObservableRecipient, INavigatio
         {
             _ = MessageBoxHelper.ShowErrorAsync(e.Message, App.MainWindow.Content.XamlRoot);
         }
+
+        IsServiceRunning = !_auxiliaryService.IsServiceRunning(WHIP4BRATS_SERVICE_NAME);
     }
 
     public async void OnNavigatedTo(object parameter)

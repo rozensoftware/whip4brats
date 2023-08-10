@@ -45,6 +45,8 @@ Run the Whip4BratsGUI module and configure the parental settings, i.e.: enter th
 Important! The child's account should not be in the Administrator group of the computer, or the supervision will be possible to remove by the child. On the other hand, the parent account must belong to the computer Administrators group.
 Next, define the time when the child can play with the computer. There is an option which can deactivate time limits.
 
+Once you have made all the settings in the Whip4BratsGUI, you can start the service which can be done in Whip4BratsGUI app.
+
 ## Locked Screen
 
 When the computer screen has been locked, only the parent can unlock it by entering the password on the lock screen and selecting additional time.

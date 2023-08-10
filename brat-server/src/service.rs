@@ -34,7 +34,7 @@ pub(crate) fn register() -> windows_service::Result<()> {
         name: OsString::from(SERVICE_NAME),
         display_name: OsString::from(SERVICE_DISPLAY_NAME),
         service_type: SERVICE_TYPE,
-        start_type: ServiceStartType::OnDemand,
+        start_type: ServiceStartType::AutoStart,
         error_control: ServiceErrorControl::Normal,
         executable_path: service_binary_path,
         launch_arguments: vec![],
