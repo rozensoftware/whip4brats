@@ -17,9 +17,29 @@ After a certain amount of time, there is a screen lock, which prevents further p
 - Temporary removal of the lock from 5 minutes to 1 hour
 - Multilingual (currently English and Polish - mostly translated)
 
+## Building
+
+Build everything. Publish Whip4BratsGUI (.NET) app.
+
+Copy all files listed below to your folder:
+
+- brat-server.exe
+- executor.exe
+- BratLocker.exe
+- 'publish' folder of exported .NET files (all .NET 7 framework and app files)
+
 ## Installation
 
-To install service run the command like below with elevated privileges:
+Run the Whip4BratsGUI module and configure the parental settings, i.e.: the parent account password, child account name and password.
+(The application password is the password of the parent's account in the system or '1234' at the first start).
+A temporary password of '1234' will be created, which will be replaced with the password of the parent account after it is configured on the Password Setup Screen.
+
+Important! The child's account should not be in the Administrator group of the computer, or the supervision will be possible to remove by the child. On the other hand, the parent account must belong to the computer Administrator group.
+Next, define the time when the child can play on the computer. There is an option which can deactivate time limits.
+
+Once you have made all the settings in the Whip4BratsGUI, you can start the service which can be done in Whip4BratsGUI app.
+
+To install (register) service manually run the below command with elevated privileges:
 
 ```powershell
 ./brat-server --register
@@ -37,15 +57,7 @@ For help type:
 ./brat-server --help
 ```
 
-Once the software is installed, a temporary password of '1234' will be created, which will be replaced with the password of the parent account after it is configured on the Password Setup Screen.
-
-Run the Whip4BratsGUI module and configure the parental settings, i.e.: enter the parent account password, child account name and password.
-(The application password is the password of the parent's account in the system).
-
-Important! The child's account should not be in the Administrator group of the computer, or the supervision will be possible to remove by the child. On the other hand, the parent account must belong to the computer Administrator group.
-Next, define the time when the child can play on the computer. There is an option which can deactivate time limits.
-
-Once you have made all the settings in the Whip4BratsGUI, you can start the service which can be done in Whip4BratsGUI app.
+Start service from The Service Management.
 
 ## Locked Screen
 
