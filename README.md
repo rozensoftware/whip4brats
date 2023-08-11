@@ -60,6 +60,24 @@ For help type:
 
 Start service from The Service Management.
 
+## Uninstallation
+
+If you installed the software by running *msi* file you must stop the service manually and run the command as Administrator to unregister the service:
+
+```powershell
+./brat-server -u
+```
+
+Next remove the application from Windows Program Files as any other installed app.
+
+If you installed the software manually the following steps must be done as Administrator:
+
+- Stop the whip4brats service
+- Execute command as above
+- Delete folder where the files reside
+
+So, currently there is no one-click solution for removing the software.
+
 ## Locked Screen
 
 When the computer screen has been locked, only the parent can unlock it by entering the password on the lock screen and selecting additional time.
@@ -86,6 +104,7 @@ These are some ideas to implement in future:
 - Write applications to remotely change the available time and monitor computer usage from the web browser.
 - Block the launch of selected applications.
 - Reporting of computer usage in given time intervals.
+- Automatic removing the software from the system
 
 ## License
 
