@@ -43,8 +43,6 @@ public partial class AdvancedSettingsViewModel : ObservableRecipient, INavigatio
         try
         {
             var currPath = _auxiliaryService.GetProgramPath();
-            //remove the last part of the path
-            currPath = currPath.Substring(0, currPath.LastIndexOf('\\'));
             var exe = Path.Combine(currPath, WHIP4BRATS_FILENAME);
             _auxiliaryService.RunExternalProgram(exe);
             _auxiliaryService.StartService(WHIP4BRATS_SERVICE_NAME);

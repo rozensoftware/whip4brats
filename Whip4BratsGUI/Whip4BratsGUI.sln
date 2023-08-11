@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Whip4BratsGUI", "Whip4Brats
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Whip4BratsGUI.Core", "Whip4BratsGUI.Core\Whip4BratsGUI.Core.csproj", "{05BC6F89-8B58-40EB-92B4-3C753CB1BA90}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Whip4BratsSetup", "Whip4BratsSetup\Whip4BratsSetup.vdproj", "{A7899B6C-B1BD-4017-8668-8E822092DA14}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,14 @@ Global
 		{05BC6F89-8B58-40EB-92B4-3C753CB1BA90}.Release|x64.Build.0 = Release|x64
 		{05BC6F89-8B58-40EB-92B4-3C753CB1BA90}.Release|x86.ActiveCfg = Release|x86
 		{05BC6F89-8B58-40EB-92B4-3C753CB1BA90}.Release|x86.Build.0 = Release|x86
+		{A7899B6C-B1BD-4017-8668-8E822092DA14}.Debug|Any CPU.ActiveCfg = Debug
+		{A7899B6C-B1BD-4017-8668-8E822092DA14}.Debug|arm64.ActiveCfg = Debug
+		{A7899B6C-B1BD-4017-8668-8E822092DA14}.Debug|x64.ActiveCfg = Debug
+		{A7899B6C-B1BD-4017-8668-8E822092DA14}.Debug|x86.ActiveCfg = Debug
+		{A7899B6C-B1BD-4017-8668-8E822092DA14}.Release|Any CPU.ActiveCfg = Release
+		{A7899B6C-B1BD-4017-8668-8E822092DA14}.Release|arm64.ActiveCfg = Release
+		{A7899B6C-B1BD-4017-8668-8E822092DA14}.Release|x64.ActiveCfg = Release
+		{A7899B6C-B1BD-4017-8668-8E822092DA14}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
