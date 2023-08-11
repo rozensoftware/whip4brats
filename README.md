@@ -26,10 +26,11 @@ Copy all files listed below to your folder:
 - brat-server.exe
 - executor.exe
 - BratLocker.exe
-- 'publish' folder of exported .NET files (all .NET 7 framework and app files)
+- 'publish' folder of exported .NET files; there you'll find Whip4BratsGUI.exe file.
 
 ## Installation
 
+Run Whip3BratsSetup.msi to install software.
 Run the Whip4BratsGUI module and configure the parental settings, i.e.: the parent account password, child account name and password.
 (The application password is the password of the parent's account in the system or '1234' at the first start).
 A temporary password of '1234' will be created, which will be replaced with the password of the parent account after it is configured on the Password Setup Screen.
@@ -72,11 +73,11 @@ The system consists of several components:
 - TCP Command Server (Executor) - written in Rust
 - Screen Locker - written in C++20
 - Whip4BratsGUI (Application for setting time and other parameters) - written in C# (.NET 7)
+- Whip4BratsSetup = VS project for creating Windows MSI. Microsoft Visual Studio Installer Projects Extension must be installed to be able to build the installer.
 
-Visual Studio 2022 and VS Code have been used to write this software. Probably VS Code could be used alone but I haven't had a chance to check it.
-There is no publish script to make an installer so far. All exe files must be in one folder to work correctly.
+Visual Studio 2022 and VS Code have been used to write this software.
 
-Bart-server logs might be seen in Windows Event Viewer (Application node).
+Bart-server writes logs to the Application node of the Windows System Event.
 
 ## TODO
 
@@ -85,7 +86,6 @@ These are some ideas to implement in future:
 - Write applications to remotely change the available time and monitor computer usage from the web browser.
 - Block the launch of selected applications.
 - Reporting of computer usage in given time intervals.
-- Installer for easy software setup.
 
 ## License
 
