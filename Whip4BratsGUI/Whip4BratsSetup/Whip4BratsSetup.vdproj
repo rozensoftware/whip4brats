@@ -15,12 +15,6 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_1A167BBAC9E4487FBEC80E39787652C8"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_453B7B99CA7C43C48144649E6D6CF570"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -135,26 +129,6 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1A167BBAC9E4487FBEC80E39787652C8"
-            {
-            "SourcePath" = "8:..\\Whip4BratsGUI\\Assets\\WindowIcon.ico"
-            "TargetName" = "8:WindowIcon.ico"
-            "Tag" = "8:"
-            "Folder" = "8:_4DBD034CDEAA418B87551C73F76260FD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_453B7B99CA7C43C48144649E6D6CF570"
             {
             "SourcePath" = "8:..\\..\\BratLocker\\x64\\Release\\BratLocker.exe"
@@ -272,7 +246,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Whip for Brats"
         "ProductCode" = "8:{E5F52256-7FAF-4A93-8AD2-F50FCAEB33F3}"
-        "PackageCode" = "8:{8ED05766-6E24-45F4-9A19-C7CE4D5A1252}"
+        "PackageCode" = "8:{3ABD1C7D-3050-465C-9FF7-BEC3E000B4C5}"
         "UpgradeCode" = "8:{967EB2BA-9470-45F0-B01B-407DAA0C0DE5}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
@@ -289,7 +263,7 @@
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:Parental Control Software"
         "ARPURLINFOABOUT" = "8:"
-        "ARPPRODUCTICON" = "8:_1A167BBAC9E4487FBEC80E39787652C8"
+        "ARPPRODUCTICON" = "8:"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"

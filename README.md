@@ -68,13 +68,14 @@ If you installed the software by running *msi* file you must stop the service ma
 ./brat-server -u
 ```
 
-Next remove the application from Windows Program Files as any other installed app.
+Next remove the application from Windows Program Files as any other installed app and registry keys (see below).
 
 If you installed the software manually the following steps must be done as Administrator:
 
 - Stop the whip4brats service
 - Execute command as above
 - Delete folder where the files reside
+- Remove registry keys: *HKEY_LOCAL_MACHINE\SOFTWARE\Rozen Software* and *HKEY_CURRENT_USER\Software\Rozen Software*
 
 So, currently there is no one-click solution for removing the software.
 
@@ -91,7 +92,7 @@ The system consists of several components:
 - TCP Command Server (Executor) - written in Rust
 - Screen Locker - written in C++20
 - Whip4BratsGUI (Application for setting time and other parameters) - written in C# (.NET 7)
-- Whip4BratsSetup = VS project for creating Windows MSI. Microsoft Visual Studio Installer Projects Extension must be installed to be able to build the installer.
+- Whip4BratsSetup - VS project for creating Windows MSI. Microsoft Visual Studio Installer Projects Extension must be installed to be able to build the installer.
 
 Visual Studio 2022 and VS Code have been used to write this software.
 

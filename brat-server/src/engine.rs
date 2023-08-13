@@ -19,6 +19,7 @@ use crate::{
 const SLEEP_TIME: u64 = 1000;
 const SHARED_MEMORY_NAME: &str = "Global\\BratLockerSharedMemory";
 const EXECUTOR_PROCESS_NAME: &str = "executor.exe";
+const BLOCKED_PROCESS_NAME: &str = "bratlocker.exe";
 const SHARED_MEMORY_SIZE: usize = 1024;
 
 pub struct Engine {
@@ -186,16 +187,15 @@ impl Engine {
 
             self.last_lock_workstation_event_sent_time = curr_time;
 
-            const BLOCKED_PROCESS_NAME: &str = "bratlocker.exe";
-
             if is_process_running(BLOCKED_PROCESS_NAME) {
                 return;
             }
 
             if !is_process_running(EXECUTOR_PROCESS_NAME) {
-                //Executor process could be killed when loging out
+                //Executor process could be killed when logging out
                 //Bring it back
                 self.load_executor();
+                info!("Brought executor back online");
             }
 
             let action_type = ActionType::LockWorkstation;
