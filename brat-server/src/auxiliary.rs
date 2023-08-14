@@ -31,9 +31,6 @@ pub fn read_timer() -> Result<u64, String> {
 
 extern "C" {
     fn runAsUser(
-        user_name: *const c_char,
-        password: *const c_char,
-        domain: *const c_char,
         program: *const c_char,
     ) -> c_int;
 
@@ -52,21 +49,15 @@ pub fn get_current_user_name() -> String {
     user_name.to_str().unwrap().to_string()
 }
 
-pub fn run_as_user(user_name: &str, user_password: &str, domain_name: &str, exe_path: &str) {
+pub fn run_as_user(exe_path: &str) {
     //run this code on a separate thread so that the service can continue to run
     //while the executor is running
 
-    let user_name = CString::new(user_name).unwrap();
-    let password = CString::new(user_password).unwrap();
-    let domain = CString::new(domain_name).unwrap();
     let program = CString::new(exe_path).unwrap();
 
     thread::spawn(move || {
         let result = unsafe {
             runAsUser(
-                user_name.as_ptr(),
-                password.as_ptr(),
-                domain.as_ptr(),
                 program.as_ptr(),
             )
         };

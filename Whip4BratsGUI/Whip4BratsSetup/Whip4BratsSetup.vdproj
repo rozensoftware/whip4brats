@@ -37,6 +37,12 @@
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
+        "Entry"
+        {
+        "MsmKey" = "8:_DD07F00BFF0A46248CAA56741C8D425C"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
     }
     "Configurations"
     {
@@ -189,6 +195,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DD07F00BFF0A46248CAA56741C8D425C"
+            {
+            "SourcePath" = "8:..\\Whip4BratsGUI\\bin\\x64\\Release\\net7.0-windows10.0.22621.0\\win10-x64\\resources.pri"
+            "TargetName" = "8:resources.pri"
+            "Tag" = "8:"
+            "Folder" = "8:_4DBD034CDEAA418B87551C73F76260FD"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
         }
         "FileType"
         {
@@ -245,15 +271,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Whip for Brats"
-        "ProductCode" = "8:{E5F52256-7FAF-4A93-8AD2-F50FCAEB33F3}"
-        "PackageCode" = "8:{3ABD1C7D-3050-465C-9FF7-BEC3E000B4C5}"
+        "ProductCode" = "8:{81319892-86F8-44C8-BAFB-2DD633BF3E4D}"
+        "PackageCode" = "8:{9D646F84-C794-4EF3-808A-B6C0C44AEEBD}"
         "UpgradeCode" = "8:{967EB2BA-9470-45F0-B01B-407DAA0C0DE5}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:1.0.1"
         "Manufacturer" = "8:Rozen Software"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -807,34 +833,6 @@
                 {
                 }
             }
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_62C8470DEDA7484087E489C73D9D9323"
-            {
-            "SourcePath" = "8:"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_4DBD034CDEAA418B87551C73F76260FD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:Release|x64"
-            "OutputGroupCanonicalName" = "8:PriFilesOutputGroup"
-            "OutputProjectGuid" = "8:{05BC6F89-8B58-40EB-92B4-3C753CB1BA90}"
-            "ShowKeyOutput" = "11:TRUE"
-                "ExcludeFilters"
-                {
-                }
-            }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_7EF3CC996C8C4F68A6AF81BEFA74DB8A"
             {
             "SourcePath" = "8:..\\Whip4BratsGUI\\obj\\x64\\Release\\net7.0-windows10.0.22621.0\\win10-x64\\apphost.exe"
@@ -886,34 +884,6 @@
             "OutputConfiguration" = "8:Release|x64"
             "OutputGroupCanonicalName" = "8:LocalizedResourceDlls"
             "OutputProjectGuid" = "8:{05BC6F89-8B58-40EB-92B4-3C753CB1BA90}"
-            "ShowKeyOutput" = "11:TRUE"
-                "ExcludeFilters"
-                {
-                }
-            }
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_EF94D517709E46C7B8CE3CE9042EBD8B"
-            {
-            "SourcePath" = "8:"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_4DBD034CDEAA418B87551C73F76260FD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:Release|x64"
-            "OutputGroupCanonicalName" = "8:PriFilesOutputGroup"
-            "OutputProjectGuid" = "8:{BF618A5C-E681-433B-91DF-09D2405B3A20}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {

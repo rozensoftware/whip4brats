@@ -1,7 +1,7 @@
 #include <windows.h>
 #include <wtsapi32.h>
 
-int runAsUser(const char *user_name, const char *password, const char *domain, const char *program)
+int runAsUser(const char *program)
 {
     HANDLE hToken;
     LPCTSTR lpApplicationName = program;

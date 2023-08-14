@@ -199,9 +199,16 @@ public partial class ContentGridDetailViewModel : ObservableRecipient, INavigati
 
             if (prevParentPassword != ParentPassword || prevChildPassword != ChildPassword || prevChildUserName != ChildUserName)
             {
-                _windowsRegistryService.UpdateCredentials(AuxiliaryService.EncodeToBase64(ParentPassword), ChildUserName, 
-                    AuxiliaryService.EncodeToBase64(ChildPassword));
-                _auxiliaryService.SetParentLogged(false);
+                try
+                {
+                    _windowsRegistryService.UpdateCredentials(AuxiliaryService.EncodeToBase64(ParentPassword), ChildUserName,
+                        AuxiliaryService.EncodeToBase64(ChildPassword));
+                    _auxiliaryService.SetParentLogged(false);
+                }
+                catch (Exception e)
+                {                
+                    _ = MessageBoxHelper.ShowErrorAsync(e.Message, App.MainWindow.Content.XamlRoot);
+                }
             }
         }
     }

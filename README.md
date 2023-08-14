@@ -31,9 +31,9 @@ Copy all files listed below to your folder:
 ## Installation
 
 Run Whip3BratsSetup.msi to install software.
-Run the Whip4BratsGUI module and configure the parental settings, i.e.: the parent account password, child account name and password.
+Run the Whip4BratsGUI module and configure the parental settings, i.e.: the parent password, child account name and password (currently not used).
 (The application password is the password of the parent's account in the system or '1234' at the first start).
-A temporary password of '1234' will be created, which will be replaced with the password of the parent account after it is configured on the Password Setup Screen.
+A temporary password of '1234' will be created, which will be replaced with the password of the parent after it is configured on the Password Setup Screen.
 
 Important! The child's account should not be in the Administrator group of the computer, or the supervision will be possible to remove by the child. On the other hand, the parent account must belong to the computer Administrator group.
 Next, define the time when the child can play on the computer. There is an option which can deactivate time limits.
@@ -75,7 +75,7 @@ If you installed the software manually the following steps must be done as Admin
 - Stop the whip4brats service
 - Execute command as above
 - Delete folder where the files reside
-- Remove registry keys: *HKEY_LOCAL_MACHINE\SOFTWARE\Rozen Software* and *HKEY_CURRENT_USER\Software\Rozen Software*
+- Remove registry keys: *HKEY_LOCAL_MACHINE\SOFTWARE\Rozen Software* and user's *HKEY_CURRENT_USER\Software\Rozen Software*
 
 So, currently there is no one-click solution for removing the software.
 

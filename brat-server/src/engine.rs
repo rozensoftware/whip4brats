@@ -79,9 +79,6 @@ impl Engine {
 
                 //Load executor as a user
                 auxiliary::run_as_user(
-                    &sett.user_name,
-                    &sett.user_password,
-                    &sett.domain_name,
                     &executor_path,
                 )
             } else {
@@ -118,9 +115,6 @@ impl Engine {
 
         //Load executor as a user
         auxiliary::run_as_user(
-            &self.settings.user_name,
-            &self.settings.user_password,
-            &self.settings.domain_name,
             &executor_path,
         )
     }

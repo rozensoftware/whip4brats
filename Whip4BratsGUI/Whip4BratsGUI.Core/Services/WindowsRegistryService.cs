@@ -3,6 +3,7 @@ using Whip4BratsGUI.Core.Models;
 using Microsoft.Win32;
 using System.Text.Json;
 using System.Resources;
+using System.Security.Principal;
 
 namespace Whip4BratsGUI.Core.Services;
 public class WindowsRegistryService : IWindowsRegistryService
@@ -85,20 +86,7 @@ public class WindowsRegistryService : IWindowsRegistryService
         var defaultPassword = "1234";
         var lockingInterval = 1000;
 
-        #pragma warning disable CA1416 // Validate platform compatibility
-        var keyUser = Registry.CurrentUser.OpenSubKey(PLAY_TIME_REG_KEY, true);
-        if (keyUser is null)
-        {
-            keyUser = Registry.CurrentUser.CreateSubKey(PLAY_TIME_REG_KEY);
-            if(keyUser is null)
-            {            
-                throw new Exception(_resource.GetString("registry_setting_failed"));
-            }
-        }
-
-        keyUser.SetValue(PARENTAL_PASSWORD_REG_NAME, string.Empty, RegistryValueKind.String);
-        keyUser.Close();
-
+#pragma warning disable CA1416 // Validate platform compatibility
         var key = Registry.LocalMachine.OpenSubKey(PLAY_TIME_REG_KEY, true);
 
         if (key is null)
@@ -111,7 +99,6 @@ public class WindowsRegistryService : IWindowsRegistryService
         }
 
         var playTimes = AuxiliaryService.CreatePlayTimeCalendar();
-
         var data = JsonSerializer.Serialize(playTimes);
 
         key.SetValue(PLAY_TIME_REG_NAME, data, RegistryValueKind.String);
@@ -127,7 +114,8 @@ public class WindowsRegistryService : IWindowsRegistryService
         #pragma warning restore CA1416 // Validate platform compatibility
     }
 
-    public void UpdateCredentials(string parentPassword, string childUserName, string childPassword)
+    public void UpdateCredentials(string parentPassword, string childUserName, 
+        string childPassword)
     {
         #pragma warning disable CA1416 // Validate platform compatibility
         var key = Registry.LocalMachine.OpenSubKey(PLAY_TIME_REG_KEY, true);
@@ -147,19 +135,28 @@ public class WindowsRegistryService : IWindowsRegistryService
 
         key.Close();
 
-        key = Registry.CurrentUser.OpenSubKey(PLAY_TIME_REG_KEY, true);
 
-        if (key is null)
+        // Get the user's SID
+        var account = new NTAccount(Environment.MachineName, childUserName);
+        var sid = (SecurityIdentifier)account.Translate(typeof(SecurityIdentifier));
+        var sidString = sid.ToString();
+
+        // Open the user's registry hive
+        var usersKey = Registry.Users;
+        var userKey = usersKey.OpenSubKey(sidString, true);
+
+        // Write to the user's registry key
+        var softwareUserKey = userKey.OpenSubKey(PLAY_TIME_REG_KEY, true);
+        softwareUserKey ??= userKey.CreateSubKey(PLAY_TIME_REG_KEY);
+
+        if (softwareUserKey is null)
         {
-            key = Registry.CurrentUser.CreateSubKey(PLAY_TIME_REG_KEY);
-            if (key is null)
-            {
-                throw new Exception(_resource.GetString("registry_setting_failed"));
-            }
+            throw new Exception(_resource.GetString("registry_setting_failed"));
         }
 
-        key.SetValue(PARENTAL_PASSWORD_REG_NAME, parentPassword, RegistryValueKind.String);
-        key.Close();
+        softwareUserKey.SetValue(PARENTAL_PASSWORD_REG_NAME, parentPassword, RegistryValueKind.String);
+        softwareUserKey.Close();
+
         #pragma warning restore CA1416 // Validate platform compatibility
     }
 
