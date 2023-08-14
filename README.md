@@ -21,12 +21,12 @@ After a certain amount of time, there is a screen lock, which prevents further p
 
 Build everything. Publish Whip4BratsGUI (.NET) app.
 
-Copy all files listed below to your folder:
+Copy all files listed below into your folder:
 
 - brat-server.exe
 - executor.exe
 - BratLocker.exe
-- 'publish' folder of exported .NET files; there you'll find Whip4BratsGUI.exe file.
+- All files from .NET publish folder; there you'll find Whip4BratsGUI.exe file.
 
 ## Installation
 
@@ -34,11 +34,13 @@ Run Whip3BratsSetup.msi to install software.
 Run the Whip4BratsGUI module and configure the parental settings, i.e.: the parent password, child account name and password (currently not used).
 (The application password is the password of the parent's account in the system or '1234' at the first start).
 A temporary password of '1234' will be created, which will be replaced with the password of the parent after it is configured on the Password Setup Screen.
+If for some reason you entered incorrect password, remove the key from the Windows registry as described below and restart the program.
 
 Important! The child's account should not be in the Administrator group of the computer, or the supervision will be possible to remove by the child. On the other hand, the parent account must belong to the computer Administrator group.
 Next, define the time when the child can play on the computer. There is an option which can deactivate time limits.
 
-Once you have made all the settings in the Whip4BratsGUI, you can start the service which can be done in Whip4BratsGUI app.
+Once you have made all the settings in the Whip4BratsGUI, you can start the service which can be done in Whip4BratsGUI app on Advanced Settings Page.
+(If the service did not start click the Start Service buttton again - to be fixed).
 
 To install (register) service manually run the below command with elevated privileges:
 
@@ -58,7 +60,7 @@ For help type:
 ./brat-server --help
 ```
 
-Start service from The Service Management.
+Start the service from The Service Management.
 
 ## Uninstallation
 
@@ -75,7 +77,7 @@ If you installed the software manually the following steps must be done as Admin
 - Stop the whip4brats service
 - Execute command as above
 - Delete folder where the files reside
-- Remove registry keys: *HKEY_LOCAL_MACHINE\SOFTWARE\Rozen Software* and user's *HKEY_CURRENT_USER\Software\Rozen Software*
+- Remove registry key: *HKEY_LOCAL_MACHINE\SOFTWARE\Rozen Software\Whip4Brats*
 
 So, currently there is no one-click solution for removing the software.
 
@@ -88,8 +90,8 @@ The screen is not locked completely, but the locking is so troublesome that furt
 
 The system consists of several components:
 
-- Windows service that monitors user time (brat-server) - written in Rust
-- TCP Command Server (Executor) - written in Rust
+- Windows service that monitors user time and executes proper actions (brat-server) - written in Rust
+- TCP Command Server (Executor or a bridge between service and user space) - written in Rust
 - Screen Locker - written in C++20
 - Whip4BratsGUI (Application for setting time and other parameters) - written in C# (.NET 7)
 - Whip4BratsSetup - VS project for creating Windows MSI. Microsoft Visual Studio Installer Projects Extension must be installed to be able to build the installer.
