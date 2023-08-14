@@ -4,8 +4,7 @@ use windows_sys::Win32::System::Performance::{QueryPerformanceCounter, QueryPerf
 use windows_sys::Win32::UI::Input::KeyboardAndMouse::{GetLastInputInfo, LASTINPUTINFO};
 
 #[derive(Default)]
-pub struct Action {
-}
+pub struct Action {}
 
 impl Action {
     pub fn lock_workstation(&self, pass: &str) -> Result<(), String> {

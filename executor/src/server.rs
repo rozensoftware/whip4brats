@@ -2,7 +2,7 @@ use crate::actionprocessor::{ActionProcessor, Processor};
 use crate::extensions::MyStringExtensions;
 use crate::wreg::WReg;
 use std::io::{Read, Write};
-use std::str;
+use std::{env, str};
 use std::{
     net::{Shutdown, TcpListener, TcpStream},
     sync::{
@@ -13,6 +13,7 @@ use std::{
 };
 
 const MAX_READ_BUFFER_SIZE: usize = 1024;
+const PARENT_PASSWORD_FILE_NAME: &str = "pp.txt";
 
 pub trait BratServer {
     fn new() -> Self;
@@ -96,6 +97,68 @@ fn handle_client(mut stream: TcpStream, running: &Arc<AtomicBool>, server_param:
     } {}
 }
 
+///Read the given file from program's directory
+/// # Arguments
+/// * `file_name` - The name of the file to read
+/// # Returns
+/// * `Result<String, String>` - The contents of the file or an error message
+/// # Example
+/// ```
+/// let contents = read_password_file("password.txt");
+/// ```
+fn read_password_file(file_name: &str) -> Result<String, String> {
+    let mut pdir = env::current_exe().unwrap().to_str().unwrap().to_string();
+
+    //Remove DOS device path prefix
+    pdir = pdir.replace("\\\\?\\", "");
+    pdir = pdir.replace("\\\\.\\", "");
+
+    //get current system directory separator
+    let separator = std::path::MAIN_SEPARATOR.to_string();
+
+    let v: Vec<&str> = pdir.split(&separator).collect();    
+    let mut program_dir: String = String::new();
+
+    for i in v.iter().take(v.len() - 1)
+    {
+        if i.is_empty()
+        {
+            continue;
+        }
+
+        if program_dir.is_empty()
+        {
+            program_dir.push_str(i);
+            continue;
+        }
+
+        program_dir.push_str(&format!("{}{}", separator, &i));
+    }
+
+    if program_dir.is_empty()
+    {
+        //if the path is empty, get the current directory
+        program_dir = env::current_dir().unwrap().to_str().unwrap().to_string();
+    }
+
+    let file_name = format!("{}{}{}", program_dir, separator, file_name);
+    let mut file = match std::fs::File::open(file_name) {
+        Ok(file) => file,
+        Err(e) => {
+            return Err(format!("Error opening file: {}", e));
+        }
+    };
+
+    let mut contents = String::new();
+    match file.read_to_string(&mut contents) {
+        Ok(_) => {}
+        Err(e) => {
+            return Err(format!("Error reading file: {}", e));
+        }
+    }
+    Ok(contents)
+}
+
 impl BratServer for SimpleBratServer {
     fn new() -> Self {
         SimpleBratServer {
@@ -104,13 +167,17 @@ impl BratServer for SimpleBratServer {
     }
 
     fn start(&mut self, address: &str, running: &Arc<AtomicBool>) -> Result<(), String> {
-        match self.registry.read()
-        {
-            Ok(_) => {}
+        match read_password_file(PARENT_PASSWORD_FILE_NAME) {
+            Ok(contents) => {
+                if let Err(x) = self.registry.set_parental_control_password(&contents) {
+                    return Err(format!("Error setting password: {}", x));
+                }
+            }
             Err(e) => {
-                return Err(format!("Error reading registry: {}", e));
+                return Err(format!("Error reading password file: {}", e));
             }
         }
+
         let listener = TcpListener::bind(address).unwrap();
         listener
             .set_nonblocking(true)

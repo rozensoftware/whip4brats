@@ -38,8 +38,7 @@ fn main() -> Result<(), std::io::Error> {
     })
     .expect("Error setting Ctrl-C handler");
 
-    match server.start(&format!("{}:{}", DEFAULT_IP, PORT_NUMBER), &running)
-    {
+    match server.start(&format!("{}:{}", DEFAULT_IP, PORT_NUMBER), &running) {
         Ok(_) => {}
         Err(e) => {
             println!("Error starting server: {}", e);

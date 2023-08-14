@@ -3,7 +3,7 @@ using Whip4BratsGUI.Core.Models;
 using Microsoft.Win32;
 using System.Text.Json;
 using System.Resources;
-using System.Security.Principal;
+using System.Reflection;
 
 namespace Whip4BratsGUI.Core.Services;
 public class WindowsRegistryService : IWindowsRegistryService
@@ -19,6 +19,7 @@ public class WindowsRegistryService : IWindowsRegistryService
     private static readonly string DISABLED_REG_NAME = "disabled";
     private static readonly string LOCKING_INTERVAL_REG_NAME = "locking_interval";
     private static readonly string LOCAL_IP_ADDRESS = "127.0.0.1";
+    private static readonly string PARENT_PASSWORD_FILE_NAME = "pp.txt";
 
     public PlayCalendar ReadPlayTime()
     {
@@ -111,20 +112,20 @@ public class WindowsRegistryService : IWindowsRegistryService
         key.SetValue(LOCKING_INTERVAL_REG_NAME, lockingInterval, RegistryValueKind.DWord);
 
         key.Close();
-        #pragma warning restore CA1416 // Validate platform compatibility
+#pragma warning restore CA1416 // Validate platform compatibility
     }
 
-    public void UpdateCredentials(string parentPassword, string childUserName, 
+    public void UpdateCredentials(string parentPassword, string childUserName,
         string childPassword)
     {
-        #pragma warning disable CA1416 // Validate platform compatibility
+#pragma warning disable CA1416 // Validate platform compatibility
         var key = Registry.LocalMachine.OpenSubKey(PLAY_TIME_REG_KEY, true);
 
         if (key is null)
-        {        
+        {
             key = Registry.LocalMachine.CreateSubKey(PLAY_TIME_REG_KEY);
             if (key is null)
-            {            
+            {
                 throw new Exception(_resource.GetString("registry_setting_failed"));
             }
         }
@@ -135,29 +136,11 @@ public class WindowsRegistryService : IWindowsRegistryService
 
         key.Close();
 
-
-        // Get the user's SID
-        var account = new NTAccount(Environment.MachineName, childUserName);
-        var sid = (SecurityIdentifier)account.Translate(typeof(SecurityIdentifier));
-        var sidString = sid.ToString();
-
-        // Open the user's registry hive
-        var usersKey = Registry.Users;
-        var userKey = usersKey.OpenSubKey(sidString, true);
-
-        // Write to the user's registry key
-        var softwareUserKey = userKey.OpenSubKey(PLAY_TIME_REG_KEY, true);
-        softwareUserKey ??= userKey.CreateSubKey(PLAY_TIME_REG_KEY);
-
-        if (softwareUserKey is null)
-        {
-            throw new Exception(_resource.GetString("registry_setting_failed"));
-        }
-
-        softwareUserKey.SetValue(PARENTAL_PASSWORD_REG_NAME, parentPassword, RegistryValueKind.String);
-        softwareUserKey.Close();
-
-        #pragma warning restore CA1416 // Validate platform compatibility
+        var path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), PARENT_PASSWORD_FILE_NAME);
+        
+        //Save parent password to the file
+        File.WriteAllText(path, parentPassword);
+#pragma warning restore CA1416 // Validate platform compatibility
     }
 
     public void ReadCredentials(out string parentPassword, out string childUserName, out string childPassword)
